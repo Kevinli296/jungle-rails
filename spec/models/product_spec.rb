@@ -12,5 +12,10 @@ RSpec.describe Product, type: :model do
       expect(@product).to be_present
     end
     # validation tests/examples here
+    it 'should have a name' do
+      @product.name = nil
+      @product.save
+      expect(@product.errors.full_messages).to include("Name can't be blank")
+    end
   end
 end
