@@ -27,5 +27,10 @@ RSpec.describe Product, type: :model do
       @product.save
       expect(@product.errors.full_messages).to include("Quantity can't be blank")
     end
+    it 'should have a category' do
+      @product.category = nil
+      @product.save
+      expect(@product.errors.full_messages).to include("Category can't be blank")
+    end
   end
 end
