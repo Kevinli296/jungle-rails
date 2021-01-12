@@ -17,5 +17,10 @@ RSpec.describe Product, type: :model do
       @product.save
       expect(@product.errors.full_messages).to include("Name can't be blank")
     end
+    it 'should have a price' do
+      @product.price_cents = nil
+      @product.save
+      expect(@product.errors.full_messages).to include("Price can't be blank")
+    end
   end
 end
