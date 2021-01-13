@@ -107,4 +107,18 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
     end
   end
+
+  describe '.authenticate_with_credentials' do
+    it 'should authenticate the user with the correct credentials and log them in' do
+      @user = User.new({
+        :first_name => 'Pepe',
+        :last_name => 'Hands',
+        :email => 'pepe@peepo.com',
+        :password => 'peepo123',
+        :password_confirmation => 'peepo123'
+      })
+      @user.save
+      expect(User.authenticate_with_credentials(@user.email, @user.password)).to eq(@user)
+    end
+  end
 end
