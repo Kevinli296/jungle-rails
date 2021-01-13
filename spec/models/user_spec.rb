@@ -54,7 +54,7 @@ RSpec.describe User, type: :model do
       @user.save
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
-    it 'should check for email' do
+    it 'should check for password and password confirmation' do
       @user = User.new({
         :first_name => 'Pepe',
         :last_name => 'Hands',
@@ -94,6 +94,17 @@ RSpec.describe User, type: :model do
       })
       @user2.save
       expect(@user2.errors.full_messages).to include("Email has already been taken")
+    end
+    it 'should check for minimum password length of 6' do
+      @user = User.new({
+        :first_name => 'Pepe',
+        :last_name => 'Hands',
+        :email => 'pepe@peepo.com',
+        :password => 'peepo',
+        :password_confirmation => 'peepo'
+      })
+      @user.save
+      expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
     end
   end
 end
