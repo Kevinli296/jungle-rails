@@ -142,5 +142,16 @@ RSpec.describe User, type: :model do
       @user.save
       expect(User.authenticate_with_credentials(@user.email, 'somepassword')).to eq(nil)
     end
+    it 'should authenticate the user with the correct credentials (with white spaces before and after their email) and log them in' do
+      @user = User.new({
+        :first_name => 'Pepe',
+        :last_name => 'Hands',
+        :email => 'pepe@peepo.com',
+        :password => 'peepo123',
+        :password_confirmation => 'peepo123'
+      })
+      @user.save
+      expect(User.authenticate_with_credentials('   pepe@peepo.com   ', @user.password)).to eq(@user)
+    end
   end
 end
